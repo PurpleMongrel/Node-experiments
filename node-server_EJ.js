@@ -14,6 +14,8 @@ createServer((request, response) => {
        response.writeHead(status, {"Content-Type": type});
        if (body && body.pipe) body.pipe(response);
        else response.end(body);
+       console.log("body.toString()")
+       console.log(JSON.stringify(body.toString()))
     });
 }).listen(8000);
 
@@ -30,7 +32,11 @@ var {resolve, sep} = require("path");
 var baseDirectory = process.cwd();
 
 function urlPath(url) {
+  console.log("\nurlPath!!!")
   let {pathname} = parse(url);
+  console.log("\npathname:");
+  console.log(pathname);
+  console.log("pathname done")
   let path = resolve(decodeURIComponent(pathname).slice(1));
   if (path != baseDirectory &&
       !path.startsWith(baseDirectory + sep)) {
@@ -44,8 +50,20 @@ const {stat, readdir} = require("fs").promises;
 const mime = require("mime");
 
 methods.GET = async function(request) {
-  let path = urlPath(request.url);
+  
+  //let path = urlPath(request.url);
+  //let path = urlPath(request.url) + __dirname;
+  let path = request.url
   let stats;
+  /* console.log("__dirname:");
+  console.log(__dirname);
+  console.log("\nrequest.url:");
+  console.log(request.url);
+  console.log("\npath:");
+  console.log(path);
+  console.log("\nurlPath(request.url):");
+  console.log(urlPath(request.url))
+  console.log("********************") */
   try {
     stats = await stat(path);
   } catch (error) {
@@ -63,13 +81,14 @@ methods.GET = async function(request) {
 const {rmdir, unlink} = require("fs").promises;
 
 methods.DELETE = async function(request) {
-  let path = urlPath(request.url);
+  let path = request.url;
   let stats;
   try {
     stats = await stat(path);
   } catch (error) {
     if (error.code != "ENOENT") throw error;
     else return {status: 204};
+    console.log("yo")
   }
   if (stats.isDirectory()) await rmdir(path);
   else await unlink(path);
@@ -108,4 +127,5 @@ methods.MKCOL = async function(request) {
   if (stats.isDirectory()) return {status: 204};
   else return {status: 400, body: "Not a directory"};
 };
+console.log("listening")
 
