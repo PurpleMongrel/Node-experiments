@@ -107,7 +107,7 @@ function pipeStream(from, to) {
 }
 
 methods.PUT = async function(request) {
-  let path = urlPath(request.url);
+  let path = request.url;
   await pipeStream(request, createWriteStream(path));
   return {status: 204};
 };
