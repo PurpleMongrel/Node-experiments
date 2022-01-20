@@ -1,24 +1,23 @@
-function searchTool(expr, ...files) {
-  
-  let result = [];
+const { statSync, readFileSync, readdirSync } = require('fs');
 
-  function searchInside(...files) {
+let results = [];
+let re = new RegExp(process.argv[2]);
 
-    let matches = [];
-
-    for (let file of files) {
-      /*
-      if file is directory {
-        for each insideFile of file: seachInside(file)
-        */
-      /* 
-      if file is a file:
-        if content of file matches expr -> push to matches
-        push file to results
-      */
+function search(file) {
+  let stats = statSync(file);
+  if (stats.isDirectory()) {
+    for (let f of readdirSync(file)) {
+      search(f);
+    }
+  } else {
+    if (re.test(readFileSync(file))) {
+      results.push(file);
     }
   }
-  searchInside(expr, files);
-
-  return result;
 }
+
+for (let file of process.argv.slice(3)) {
+  search(file);
+}
+
+console.log(results);
