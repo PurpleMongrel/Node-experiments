@@ -7,7 +7,7 @@ function search(file) {
   let stats = statSync(file);
   if (stats.isDirectory()) {
     for (let f of readdirSync(file)) {
-      search(f);
+      search(file + "/" + f );
     }
   } else {
     if (re.test(readFileSync(file))) {
