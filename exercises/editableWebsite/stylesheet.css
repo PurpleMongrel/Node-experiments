@@ -1,0 +1,31 @@
+body {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  cursor: crosshair;
+}
+
+div {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  background:  #2c1c63;
+}
+
+#outputBox {
+  background: rgb(255, 229, 214); 
+  height: 600px; 
+  width: 200px;
+  display: inline-block;
+}
+
+#textBox {
+  background:red;
+  height: 60px; 
+  width: 20px;
+  display: inline-block
+}
