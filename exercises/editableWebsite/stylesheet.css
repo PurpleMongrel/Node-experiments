@@ -32,6 +32,7 @@ form {
   background: rgb(195, 90, 49); 
   height: 600px; 
   flex-grow: 1;
+  color: black;
   
 }
 
@@ -46,7 +47,7 @@ button {
   text-justify: center;
 }
 
-#textBox {
+#inputBox {
   background:rgb(53, 58, 119);
   height: 600px; 
   flex-grow: 1;
