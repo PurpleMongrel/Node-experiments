@@ -1,7 +1,25 @@
-const {readFileSync} = require('fs');
+/* const {readFileSync} = require('fs');
 
-/* let mainBody = document.getElementById("mainBody");
-mainBody.style.background = readFileSync("backgroundColor.txt"); */
+mainBody.style.background = readFileSync("backgroundColor.txt");
 
 let buffColor = readFileSync("background-color.txt")
-console.log(buffColor.toString())
+console.log(buffColor.toString()) */
+
+function fun() {
+  let outputBox = document.getElementById("outputBox");
+  let requestButton = document.getElementById("requestButton");
+  let inputBox = document.getElementById("inputBox");
+
+
+  outputBox.innerText = "test"
+  outputBox.style.fontSize = "100px";
+
+  function submitFun() {
+    outputBox.innerText = inputBox.value;
+  }
+
+
+
+  requestButton.addEventListener('click', submitFun)
+
+}
